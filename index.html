@@ -37,13 +37,14 @@
   .wrap{max-width:980px;margin:0 auto;padding:12px env(safe-area-inset-right) 80px env(safe-area-inset-left)}
   @media (min-width:768px){ .wrap{padding:20px 20px 100px} }
 
-  /* ========= Hero / Header ========= */
-  header.hero{
-    position:sticky;top:0;z-index:50;color:#fff;
-    background:linear-gradient(135deg, #0F4C81 0%, #0E3A63 60%, #0C3256 100%);
-    border-bottom:1px solid rgba(255,255,255,.15);
-    box-shadow:0 4px 18px rgba(0,0,0,.08);
-  }
+/* ========= Hero / Header ========= */
+header.hero{
+  /* 追従をやめて通常のブロックに */
+  color:#fff;
+  background:linear-gradient(135deg, #0F4C81 0%, #0E3A63 60%, #0C3256 100%);
+  border-bottom:1px solid rgba(255,255,255,.15);
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
   .hero-inner{max-width:980px;margin:0 auto;padding:12px 12px calc(12px + env(safe-area-inset-top))}
   h1{margin:2px 0 4px;font-size: clamp(20px, 5vw, 26px);letter-spacing:.02em}
   .sub{opacity:.95;font-weight:700}
@@ -121,12 +122,25 @@
   }
   @keyframes twinkle { 0%{transform:scale(.6);opacity:0} 60%{transform:scale(1.05);opacity:1} 100%{transform:scale(1);opacity:.9} }
 
-  /* ========= Back to top ========= */
-  .to-top{
-    position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));
-    background:var(--brand);color:#fff;border:none;border-radius:999px;
-    padding:12px 14px;box-shadow:var(--shadow);z-index:60;font-weight:800
-  }
+/* ========= Back to top ========= */
+.to-top{
+  position:fixed;
+  right:14px;
+  bottom:calc(14px + env(safe-area-inset-bottom));
+  width:52px; height:52px;  /* 丸ボタン */
+  border-radius:50%;
+  background:var(--brand);
+  color:#fff;
+  border:none;
+  box-shadow:var(--shadow);
+  z-index:60;
+  font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0; pointer-events:none; transform:translateY(8px);
+  transition:opacity .25s ease, transform .25s ease;
+}
+.to-top.show{opacity:1; pointer-events:auto; transform:translateY(0)}
+.to-top:active{transform:translateY(1px)}
 
   /* ========= QA ========= */
   details.qa{border:1px solid var(--line);border-radius:12px;background:#fff;padding:0}
@@ -480,7 +494,9 @@
     <p class="foot-msg">絶対に受かる。やるべきことは全部ここにある。</p>
   </section>
 </div>
-<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+<button class="to-top" aria-label="ページ上部へ" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+</body>
+</html>
 
 <script>
   // ===== D-day counter (JST) =====
@@ -535,6 +551,21 @@
       }
     }
   })();
+
+  // ===== Show / hide "back to top" button =====
+(function(){
+  const btn = document.querySelector('.to-top');
+  const THRESHOLD = 200; // 200px超で表示
+  function onScroll(){
+    if (window.scrollY > THRESHOLD) {
+      btn.classList.add('show');
+    } else {
+      btn.classList.remove('show');
+    }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll(); // 初回判定
+})();
 </script>
 </body>
 </html>
