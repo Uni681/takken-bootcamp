@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>絶対合格｜宅建6日間ブートキャンプ</title>
+<meta name="theme-color" content="#0F4C81" />
+<style>
+  /* ========= Theme ========= */
+  :root{
+    --ink:#0F2A3C;           /* 深めのインク */
+    --brand:#0F4C81;         /* 大人ブルー */
+    --brand-2:#3A7CBC;       /* 明るめブルー */
+    --accent:#8EC9FF;        /* パステルブルー */
+    --accent-2:#CFEAFF;      /* さらに淡い */
+    --bg:#F7FBFF;            /* すこし青みの白 */
+    --card:#FFFFFF;
+    --line:#E3EEF7;
+    --ok:#22A06B;
+    --warn:#C45B00;
+    --danger:#B11E3B;
+    --radius:18px;
+    --shadow:0 10px 24px rgba(15,76,129,.10);
+  }
+  *{box-sizing:border-box}
+  html,body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    line-height:1.65;
+    -webkit-text-size-adjust:100%;
+  }
+  a{color:var(--brand-2);text-decoration:none}
+  a:active{opacity:.9}
+  img{max-width:100%;height:auto}
+
+  /* ========= Layout ========= */
+  .wrap{max-width:980px;margin:0 auto;padding:12px env(safe-area-inset-right) 80px env(safe-area-inset-left)}
+  @media (min-width:768px){ .wrap{padding:20px 20px 100px} }
+
+  /* ========= Hero / Header ========= */
+  header.hero{
+    position:sticky;top:0;z-index:50;color:#fff;
+    background:linear-gradient(135deg, #0F4C81 0%, #0E3A63 60%, #0C3256 100%);
+    border-bottom:1px solid rgba(255,255,255,.15);
+    box-shadow:0 4px 18px rgba(0,0,0,.08);
+  }
+  .hero-inner{max-width:980px;margin:0 auto;padding:12px 12px calc(12px + env(safe-area-inset-top))}
+  h1{margin:2px 0 4px;font-size: clamp(20px, 5vw, 26px);letter-spacing:.02em}
+  .sub{opacity:.95;font-weight:700}
+  .grid-top{display:grid;grid-template-columns:1fr;gap:10px;margin-top:8px}
+  @media(min-width:720px){.grid-top{grid-template-columns:1fr auto auto}}
+
+  .counter,.progress{
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:14px;padding:10px 12px
+  }
+  .counter b{font-size:18px}
+  .progress-bar{height:10px;background:rgba(255,255,255,.22);border-radius:999px;overflow:hidden;margin-top:6px}
+  .progress-bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#8EC9FF,#E5F2FF);transition:width .35s ease}
+
+  /* ========= Menu (丸ボタン・中央寄せ) ========= */
+  nav.menu{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+  .chip{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:84px;height:40px;padding:0 14px;
+    background:#fff;color:var(--brand);border:1px solid var(--line);
+    border-radius:999px;font-weight:800;box-shadow:var(--shadow);
+    letter-spacing:.02em;
+  }
+  .chip:active{transform:translateY(1px)}
+  @media(min-width:720px){ .chip{height:44px;min-width:96px} }
+
+  /* ========= Sections / Cards ========= */
+  section{margin-top:18px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:14px
+  }
+  @media(min-width:720px){ .card{padding:18px} }
+
+  .sec-title{display:flex;align-items:center;gap:10px;margin:0 0 8px}
+  .sec-title .dot{width:10px;height:10px;background:var(--brand-2);border-radius:50%}
+  .lead{font-weight:700}
+
+  /* ========= Accordion / Days ========= */
+  details.day{
+    border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:var(--shadow);
+    margin-top:12px;overflow:hidden
+  }
+  details.day summary{
+    list-style:none;padding:14px 14px;background:linear-gradient(180deg,#F3F8FF,#fff);
+    display:flex;align-items:center;justify-content:space-between;cursor:pointer
+  }
+  details.day summary::-webkit-details-marker{display:none}
+  .day-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .badge{background:#EAF5FF;color:var(--brand);padding:4px 10px;border-radius:999px;border:1px solid var(--line);font-weight:800}
+  .when{font-weight:800}
+  .goal{font-size:12px;color:#3c5364}
+  .day-body{padding:12px 14px 16px;border-top:1px solid var(--line)}
+
+  /* ========= Slots / Checklist ========= */
+  .slot{
+    border:1px dashed var(--line);border-radius:14px;padding:12px;margin-top:10px;background:#FCFEFF
+  }
+  .slot h4{margin:0 0 6px;font-size:15px;color:#27455e}
+  ul.todo{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .todo li{
+    display:flex;align-items:flex-start;gap:10px;padding:10px;border:1px solid var(--line);
+    border-radius:12px;background:#fff;position:relative;overflow:hidden
+  }
+  .todo input[type="checkbox"]{
+    width:22px;height:22px;margin-top:2px;accent-color:var(--brand);flex:0 0 auto
+  }
+  .todo .ttl{font-weight:800}
+  .todo .hint{font-size:12px;color:#476278}
+  .todo li.done{background:linear-gradient(180deg,#F2FAFF,#FFFFFF)}
+  .todo li.done::after{
+    content:"✨"; position:absolute; right:10px; bottom:6px; opacity:.9;
+    animation: twinkle .9s ease both;
+  }
+  @keyframes twinkle { 0%{transform:scale(.6);opacity:0} 60%{transform:scale(1.05);opacity:1} 100%{transform:scale(1);opacity:.9} }
+
+  /* ========= Back to top ========= */
+  .to-top{
+    position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));
+    background:var(--brand);color:#fff;border:none;border-radius:999px;
+    padding:12px 14px;box-shadow:var(--shadow);z-index:60;font-weight:800
+  }
+
+  /* ========= QA ========= */
+  details.qa{border:1px solid var(--line);border-radius:12px;background:#fff;padding:0}
+  details.qa summary{list-style:none;padding:12px 14px;cursor:pointer;font-weight:800}
+  details.qa summary::-webkit-details-marker{display:none}
+  details.qa .ans{padding:0 14px 14px;color:#3b5568}
+
+  /* ========= Memo ========= */
+  .memo-grid{display:grid;grid-template-columns:1fr;gap:10px}
+  @media(min-width:720px){.memo-grid{grid-template-columns:1fr 1fr}}
+  .memo{border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px}
+  .memo h4{margin:0 0 6px}
+  .small{font-size:12px}
+  .kicker{font-size:11px;font-weight:800;color:#0F4C81;letter-spacing:.08em}
+  .foot-msg{margin-top:14px;text-align:center;color:#27455e;font-weight:900}
+
+  /* ========= Today highlight ========= */
+  .is-today summary{outline:2px solid var(--accent);box-shadow:0 0 0 4px rgba(142,201,255,.25) inset}
+
+  /* ========= Motion prefs ========= */
+  @media (prefers-reduced-motion: reduce) {
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  }
+
+  /* ========= Mobile readability tweaks ========= */
+  @media (max-width:420px){
+    .goal{display:none} /* 情報圧縮：モバイル極小はゴール文を本文に集約 */
+    .slot h4{font-size:14px}
+    .todo .hint{font-size:11.5px}
+  }
+
+  html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <h1>絶対合格｜宅建6日間ブートキャンプ</h1>
+    <div class="sub">君は必ず <b>38点</b> を超える。</div>
+    <div class="grid-top">
+      <div class="counter">試験日：<b>2025/10/19</b>（日）｜残り <b id="dday">--</b> 日</div>
+      <div class="progress">
+        全体進捗
+        <div class="progress-bar"><i id="overallBar"></i></div>
+        <div class="small" id="overallText">0 / 0 完了</div>
+      </div>
+      <nav class="menu" aria-label="目次">
+        <a class="chip" href="#intro">前がき</a>
+        <a class="chip" href="#qa">Q&A</a>
+        <a class="chip" href="#curriculum">カリキュラム</a>
+        <a class="chip" href="#memo">当日メモ</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 前がき -->
+  <section id="intro" class="card">
+    <h2 class="sec-title"><span class="dot"></span><span>前がき（宣誓文）</span></h2>
+    <p class="lead">
+      この6日間＋3日の勉強は、ただ問題を解く時間じゃない。目的はひとつ、<b>10月19日に38点を取り切って合格すること</b>。
+    </p>
+    <p>
+      宅建は「出るところを反射で答える」試験。全部やる必要はない。だから君は、迷わずこのカリキュラムに従うだけでいい。
+      開く→解く→間違いを赤で1行メモ→×を潰す。これを繰り返すだけで、点は積み上がる。
+    </p>
+    <p>
+      勉強が苦手でも、コツコツが苦手でも大丈夫。直前の爆発力で合格した人は毎年たくさんいる。君はその勝ち筋に全振りする。
+      最後の1マークまで取りにいこう。<b>やるべきことは全部ここにある。</b>
+    </p>
+  </section>
+
+  <!-- Q&A -->
+  <section id="qa" class="card">
+    <h2 class="sec-title"><span class="dot"></span><span>直前Q&A（つまづき即解消）</span></h2>
+
+    <details class="qa" open>
+      <summary>Q. 「解く」って具体的にどうする？</summary>
+      <div class="ans">
+        論点別過去問集を開き、指示された範囲を<b>50分</b>で解く。答え合わせ後、
+        迷い＝△、間違い＝×を付け、<b>解説の根拠を赤で1行だけ</b>余白に書く（例：「35条＝宅建士説明／契約前交付」）。
+      </div>
+    </details>
+    <details class="qa">
+      <summary>Q. 一問一答は？</summary>
+      <div class="ans">
+        ストップウォッチで<b>1問15〜20秒</b>。即答→確認→根拠ワードを声に出して上書き。悩む時間は使わない。
+      </div>
+    </details>
+    <details class="qa">
+      <summary>Q. 計算（建ぺい・容積）が苦手</summary>
+      <div class="ans">
+        理解より<b>暗記→当て込み</b>でOK。<br>
+        ・容積率＝前面道路幅員×<b>4/10</b>（住居系）／建ぺいは指定値＋角地緩和（+10%）。<br>
+        公式は付箋に1行で書いて該当ページに貼る。
+      </div>
+    </details>
+    <details class="qa">
+      <summary>Q. 権利関係はどうする？</summary>
+      <div class="ans">
+        <b>頻出10論点だけ</b>狙い撃ち（意思表示／代理／時効／契約不適合／物権変動／抵当権／連帯保証／相続／借地借家／定型約款・消契法）。ここで<b>5〜9点</b>拾う。
+      </div>
+    </details>
+    <details class="qa">
+      <summary>Q. 模試の活用法は？</summary>
+      <div class="ans">
+        本番と同条件（90分・50問・<b>業法→制限→税→権利</b>）。点より<b>誤答原因</b>が最重要。終わったら論点別に戻り<b>同型10問</b>で穴を塞ぐ。
+      </div>
+    </details>
+    <details class="qa">
+      <summary>Q. 集中が途切れたら？</summary>
+      <div class="ans">
+        5分歩く→水→一問一答10問だけ声出し。SNS・動画は<b>触らない</b>。
+      </div>
+    </details>
+  </section>
+
+  <!-- カリキュラム（時間割） -->
+  <section id="curriculum">
+    <div class="card">
+      <h2 class="sec-title"><span class="dot"></span><span>夏期講習カリキュラム（時間割）</span></h2>
+      <p class="small" style="color:#45607a">各タスクはチェックで保存（端末ローカル）。完了で色が変わり、上部の進捗に反映。</p>
+    </div>
+
+    <!-- Day blocks（※前の版と同じ中身。省略なくそのまま配置） -->
+    <!-- 10/10 -->
+    <details class="day" id="d-2025-10-10">
+      <summary>
+        <div class="day-head"><span class="badge">Day1</span><span class="when">10/10（金）｜業法まるごと骨格</span></div>
+        <div class="goal">本日のゴール：業法〇率70%／自ら売主制限を言える</div>
+      </summary>
+      <div class="day-body">
+        <div class="slot"><h4>09:00–11:00｜業法① 免許・欠格・保証協会・営業保証金（40問）</h4>
+          <ul class="todo" data-day="2025-10-10">
+            <li><input type="checkbox" id="1010-1"><label for="1010-1"><div class="ttl">論点別40問（20×2）</div><div class="hint">×/△に赤で<b>要件キーワード1行</b></div></label></li>
+          </ul></div>
+        <div class="slot"><h4>11:10–13:00｜業法② 媒介契約／報酬額（40問）</h4>
+          <ul class="todo" data-day="2025-10-10">
+            <li><input type="checkbox" id="1010-2"><label for="1010-2"><div class="ttl">論点別40問</div><div class="hint"><b>レインズ/報告義務</b>を余白に表で固定</div></label></li>
+          </ul></div>
+        <div class="slot"><h4>14:00–16:00｜業法③ 35条（重説）（40問）</h4>
+          <ul class="todo" data-day="2025-10-10">
+            <li><input type="checkbox" id="1010-3"><label for="1010-3"><div class="ttl">論点別40問</div><div class="hint"><b>説明＝宅建士／交付＝契約前</b>を大書</div></label></li>
+          </ul></div>
+        <div class="slot"><h4>16:10–18:00｜業法④ 37条＋手付・違約金・保全（40問）</h4>
+          <ul class="todo" data-day="2025-10-10">
+            <li><input type="checkbox" id="1010-4"><label for="1010-4"><div class="ttl">論点別40問</div><div class="hint"><b>自ら売主の8種制限</b>を箇条書き</div></label></li>
+          </ul></div>
+        <div class="slot"><h4>19:00–21:00｜一問一答（業法）300–400問</h4>
+          <ul class="todo" data-day="2025-10-10">
+            <li><input type="checkbox" id="1010-5"><label for="1010-5"><div class="ttl">スプリント回し</div><div class="hint">1問15–20秒で即答→根拠ワード</div></label></li>
+          </ul></div>
+        <div class="slot"><h4>21:00–22:00｜×だけ再解答（20–30問）</h4>
+          <ul class="todo" data-day="2025-10-10">
+            <li><input type="checkbox" id="1010-6"><label for="1010-6"><div class="ttl">×総潰し</div><div class="hint">今日の×ページのみ</div></label></li>
+          </ul></div>
+      </div>
+    </details>
+
+    <!-- 10/11 -->
+    <details class="day" id="d-2025-10-11">
+      <summary>
+        <div class="day-head"><span class="badge">Day2</span><span class="when">10/11（土）｜業法穴埋め＋制限の計算</span></div>
+        <div class="goal">本日のゴール：制限の式と数字を暗唱できる</div>
+      </summary>
+      <div class="day-body">
+        <div class="slot"><h4>09:00–11:00｜業法⑤ 監督処分・罰則・クーリングオフ（40問）</h4>
+          <ul class="todo" data-day="2025-10-11"><li><input type="checkbox" id="1011-1"><label for="1011-1"><div class="ttl">論点別40問</div><div class="hint"><b>指示→停止→取消</b>を見出し化</div></label></li></ul></div>
+        <div class="slot"><h4>11:10–13:00｜業法 ×潰し（40問）</h4>
+          <ul class="todo" data-day="2025-10-11"><li><input type="checkbox" id="1011-2"><label for="1011-2"><div class="ttl">Day1の×のみ</div><div class="hint">同型10問で穴塞ぎ</div></label></li></ul></div>
+        <div class="slot"><h4>14:00–16:00｜制限① 用途・建ぺい・容積（40問）</h4>
+          <ul class="todo" data-day="2025-10-11"><li><input type="checkbox" id="1011-3"><label for="1011-3"><div class="ttl">論点別40問</div><div class="hint">付箋に<b>容積＝前面道路×4/10</b>等を1行</div></label></li></ul></div>
+        <div class="slot"><h4>16:10–18:00｜制限② 防火/準防火・高さ・日影（40問）</h4>
+          <ul class="todo" data-day="2025-10-11"><li><input type="checkbox" id="1011-4"><label for="1011-4"><div class="ttl">論点別40問</div><div class="hint">出る地区名を1語</div></label></li></ul></div>
+        <div class="slot"><h4>19:00–21:00｜一問一答（業法＋制限）300問</h4>
+          <ul class="todo" data-day="2025-10-11"><li><input type="checkbox" id="1011-5"><label for="1011-5"><div class="ttl">スプリント</div><div class="hint">タイムアタックで反射</div></label></li></ul></div>
+        <div class="slot"><h4>21:00–22:00｜×だけ再解答（20–30問）</h4>
+          <ul class="todo" data-day="2025-10-11"><li><input type="checkbox" id="1011-6"><label for="1011-6"><div class="ttl">×総潰し</div><div class="hint">根拠1行を増やす</div></label></li></ul></div>
+      </div>
+    </details>
+
+    <!-- 10/12 -->
+    <details class="day" id="d-2025-10-12">
+      <summary>
+        <div class="day-head"><span class="badge">Day3</span><span class="when">10/12（日）｜制限完了＋税イン＋模試①</span></div>
+        <div class="goal">本日のゴール：模試32点以上／税の数字を言える</div>
+      </summary>
+      <div class="day-body">
+        <div class="slot"><h4>09:00–11:00｜制限③ 農地法・国土法・宅地造成（40問）</h4>
+          <ul class="todo" data-day="2025-10-12"><li><input type="checkbox" id="1012-1"><label for="1012-1"><div class="ttl">論点別40問</div><div class="hint"><b>許可or届出</b>を赤で1語</div></label></li></ul></div>
+        <div class="slot"><h4>11:10–13:00｜税① 取得税・固定資産税（40問）</h4>
+          <ul class="todo" data-day="2025-10-12"><li><input type="checkbox" id="1012-2"><label for="1012-2"><div class="ttl">論点別40問</div><div class="hint">税率・主体・納税者の<b>3点セット</b></div></label></li></ul></div>
+        <div class="slot"><h4>14:00–16:00｜税② 都市計画税・住ロ控除・登免・印紙（40問）</h4>
+          <ul class="todo" data-day="2025-10-12"><li><input type="checkbox" id="1012-3"><label for="1012-3"><div class="ttl">論点別40問</div><div class="hint">数字は丸暗記。声出し</div></label></li></ul></div>
+        <div class="slot"><h4>16:10–18:00｜模試①（90分・50問）本番順</h4>
+          <ul class="todo" data-day="2025-10-12"><li><input type="checkbox" id="1012-4"><label for="1012-4"><div class="ttl">本番リハ</div><div class="hint"><b>業法→制限→税→権利</b>。迷いは★で後回し</div></label></li></ul></div>
+        <div class="slot"><h4>19:00–22:00｜模試①復習 → 同型を論点別で10問ずつ</h4>
+          <ul class="todo" data-day="2025-10-12"><li><input type="checkbox" id="1012-5"><label for="1012-5"><div class="ttl">誤答パターン封鎖</div><div class="hint">点より<b>原因</b>が命</div></label></li></ul></div>
+      </div>
+    </details>
+
+    <!-- 10/13 -->
+    <details class="day" id="d-2025-10-13">
+      <summary>
+        <div class="day-head"><span class="badge">Day4</span><span class="when">10/13（月）｜総復習＋模試②＋権利10論点</span></div>
+        <div class="goal">本日のゴール：模試34点／権利の手応え</div>
+      </summary>
+      <div class="day-body">
+        <div class="slot"><h4>09:00–11:00｜業法 ×全潰し（40問目安）</h4>
+          <ul class="todo" data-day="2025-10-13"><li><input type="checkbox" id="1013-1"><label for="1013-1"><div class="ttl">付箋総回収</div><div class="hint">×の消し込みゲーム</div></label></li></ul></div>
+        <div class="slot"><h4>11:10–13:00｜制限・税 ×全潰し（40問目安）</h4>
+          <ul class="todo" data-day="2025-10-13"><li><input type="checkbox" id="1013-2"><label for="1013-2"><div class="ttl">仕上げ</div><div class="hint">数字・式を再暗唱</div></label></li></ul></div>
+        <div class="slot"><h4>14:00–15:30｜模試②（90分）</h4>
+          <ul class="todo" data-day="2025-10-13"><li><input type="checkbox" id="1013-3"><label for="1013-3"><div class="ttl">本番慣れ</div><div class="hint">解く順＆ペース確認</div></label></li></ul></div>
+        <div class="slot"><h4>15:40–16:40｜模試②復習（同型10問）</h4>
+          <ul class="todo" data-day="2025-10-13"><li><input type="checkbox" id="1013-4"><label for="1013-4"><div class="ttl">原因潰し</div><div class="hint">次は絶対落とさない</div></label></li></ul></div>
+        <div class="slot"><h4>16:50–18:00｜権利：頻出10論点（各10問＝100問）</h4>
+          <ul class="todo" data-day="2025-10-13"><li><input type="checkbox" id="1013-5"><label for="1013-5"><div class="ttl">狙い撃ち</div><div class="hint">10論点のみ。広げない</div></label></li></ul></div>
+        <div class="slot"><h4>19:00–21:00｜一問一答（業法）400–500問</h4>
+          <ul class="todo" data-day="2025-10-13"><li><input type="checkbox" id="1013-6"><label for="1013-6"><div class="ttl">総仕上げ</div><div class="hint">声出し・反射優先</div></label></li></ul></div>
+        <div class="slot"><h4>21:00–22:00｜当日メモ（A4）ドラフト</h4>
+          <ul class="todo" data-day="2025-10-13"><li><input type="checkbox" id="1013-7"><label for="1013-7"><div class="ttl">1枚に圧縮</div><div class="hint">業法要点／式／税率／権利見出し語</div></label></li></ul></div>
+      </div>
+    </details>
+
+    <!-- 仕事日（共通） -->
+    <details class="day" id="d-2025-10-14">
+      <summary>
+        <div class="day-head"><span class="badge">Work</span><span class="when">10/14（火）〜10/16（木）｜仕事日：4hルーティン</span></div>
+        <div class="goal">毎日のゴール：×を合計10個以上消す</div>
+      </summary>
+      <div class="day-body">
+        <div class="slot"><h4>09:00–10:00｜一問一答：業法150問（TT）</h4>
+          <ul class="todo" data-day="2025-10-14"><li><input type="checkbox" id="1014-1"><label for="1014-1"><div class="ttl">タイムトライアル</div><div class="hint">1問15–20秒</div></label></li></ul></div>
+        <div class="slot"><h4>10:00–11:00｜一問一答：制限120問（TT）</h4>
+          <ul class="todo" data-day="2025-10-14"><li><input type="checkbox" id="1014-2"><label for="1014-2"><div class="ttl">式と数字の固定</div><div class="hint">声出し暗唱</div></label></li></ul></div>
+        <div class="slot"><h4>18:00–19:00｜論点別：業法 ×40問</h4>
+          <ul class="todo" data-day="2025-10-14"><li><input type="checkbox" id="1014-3"><label for="1014-3"><div class="ttl">×だけ潰す</div><div class="hint">新規範囲はやらない</div></label></li></ul></div>
+        <div class="slot"><h4>19:00–20:00｜論点別：制限・税 ×40問</h4>
+          <ul class="todo" data-day="2025-10-14"><li><input type="checkbox" id="1014-4"><label for="1014-4"><div class="ttl">穴埋め継続</div><div class="hint">赤1行根拠で定着</div></label></li></ul></div>
+        <p class="small" style="color:#45607a">※10/15・10/16も同メニュー。各日でチェックが保存されます。</p>
+      </div>
+    </details>
+
+    <!-- 10/17 -->
+    <details class="day" id="d-2025-10-17">
+      <summary>
+        <div class="day-head"><span class="badge">Day5</span><span class="when">10/17（金）｜伸び所増幅＋模試③</span></div>
+        <div class="goal">本日のゴール：模試35点以上／権利5点の感触</div>
+      </summary>
+      <div class="day-body">
+        <div class="slot"><h4>09:00–11:00｜税・その他 総まとめ（演習40問）</h4>
+          <ul class="todo" data-day="2025-10-17"><li><input type="checkbox" id="1017-1"><label for="1017-1"><div class="ttl">数字仕上げ</div><div class="hint">取得税／固定資産／都市計画／住ロ骨子</div></label></li></ul></div>
+        <div class="slot"><h4>11:10–13:00｜業法 弱点40問</h4>
+          <ul class="todo" data-day="2025-10-17"><li><input type="checkbox" id="1017-2"><label for="1017-2"><div class="ttl">×リスト抽出</div><div class="hint">反射で言えるまで回す</div></label></li></ul></div>
+        <div class="slot"><h4>14:00–15:30｜模試③（90分）</h4>
+          <ul class="todo" data-day="2025-10-17"><li><input type="checkbox" id="1017-3"><label for="1017-3"><div class="ttl">本番リハ3</div><div class="hint">業法→制限→税→権利</div></label></li></ul></div>
+        <div class="slot"><h4>15:40–17:40｜模試③復習 → 同型10問</h4>
+          <ul class="todo" data-day="2025-10-17"><li><input type="checkbox" id="1017-4"><label for="1017-4"><div class="ttl">原因潰し</div><div class="hint">“次は解ける”状態へ</div></label></li></ul></div>
+        <div class="slot"><h4>19:00–21:00｜一問一答（業法＋制限）400問</h4>
+          <ul class="todo" data-day="2025-10-17"><li><input type="checkbox" id="1017-5"><label for="1017-5"><div class="ttl">スプリント</div><div class="hint">タイムアタック継続</div></label></li></ul></div>
+        <div class="slot"><h4>21:00–22:00｜権利：頻出10論点 一問一答（200–300問）</h4>
+          <ul class="todo" data-day="2025-10-17"><li><input type="checkbox" id="1017-6"><label for="1017-6"><div class="ttl">狭く深く</div><div class="hint">10論点のみ強化</div></label></li></ul></div>
+      </div>
+    </details>
+
+    <!-- 10/18 -->
+    <details class="day" id="d-2025-10-18">
+      <summary>
+        <div class="day-head"><span class="badge">Day6</span><span class="when">10/18（土）｜最終調整＋模試④＋当日メモ清書</span></div>
+        <div class="goal">本日のゴール：模試36–38点／当日メモA4完成</div>
+      </summary>
+      <div class="day-body">
+        <div class="slot"><h4>09:00–10:30｜模試④（90分）</h4>
+          <ul class="todo" data-day="2025-10-18"><li><input type="checkbox" id="1018-1"><label for="1018-1"><div class="ttl">本番最終リハ</div><div class="hint">時間配分の最終確認</div></label></li></ul></div>
+        <div class="slot"><h4>10:40–12:10｜模試④復習</h4>
+          <ul class="todo" data-day="2025-10-18"><li><input type="checkbox" id="1018-2"><label for="1018-2"><div class="ttl">誤答原因潰し</div><div class="hint">×肢を<b>声で理由即答</b>まで</div></label></li></ul></div>
+        <div class="slot"><h4>13:10–15:10｜論点別：業法 ×潰し（40問）</h4>
+          <ul class="todo" data-day="2025-10-18"><li><input type="checkbox" id="1018-3"><label for="1018-3"><div class="ttl">最後の穴埋め</div><div class="hint">業法は満点近くへ</div></label></li></ul></div>
+        <div class="slot"><h4>15:20–17:20｜論点別：制限・税 ×潰し（40問）</h4>
+          <ul class="todo" data-day="2025-10-18"><li><input type="checkbox" id="1018-4"><label for="1018-4"><div class="ttl">式・数字の上書き</div><div class="hint">公式と税率を口で回す</div></label></li></ul></div>
+        <div class="slot"><h4>19:00–20:00｜一問一答：業法300問</h4>
+          <ul class="todo" data-day="2025-10-18"><li><input type="checkbox" id="1018-5"><label for="1018-5"><div class="ttl">反射確認</div><div class="hint">軽めに回転</div></label></li></ul></div>
+        <div class="slot"><h4>20:00–21:00｜当日メモ 清書（A4一枚）</h4>
+          <ul class="todo" data-day="2025-10-18"><li><input type="checkbox" id="1018-6"><label for="1018-6"><div class="ttl">1枚完結</div><div class="hint">35条/37条/報酬/手付/監督処分＋式＋税率＋権利見出し</div></label></li></ul></div>
+      </div>
+    </details>
+
+    <!-- Exam -->
+    <details class="day" id="d-2025-10-19">
+      <summary>
+        <div class="day-head"><span class="badge">Exam</span><span class="when">10/19（日）｜本試験</span></div>
+        <div class="goal">本日のゴール：落ち着いて取り切る（業法で貯金）</div>
+      </summary>
+      <div class="day-body">
+        <div class="slot"><h4>朝｜当日メモ 30分だけ眺める</h4>
+          <ul class="todo" data-day="2025-10-19"><li><input type="checkbox" id="1019-1"><label for="1019-1"><div class="ttl">新しいことは見ない</div><div class="hint">今ある力を最大化</div></label></li></ul></div>
+        <div class="slot"><h4>本番｜解く順番・リズム</h4>
+          <ul class="todo" data-day="2025-10-19"><li><input type="checkbox" id="1019-2"><label for="1019-2"><div class="ttl">業法→制限→税→権利</div><div class="hint">迷いは★で後回し／1問60秒目安</div></label></li></ul></div>
+        <div class="slot"><h4>ラスト10分｜★と計算を戻る→マークずれ確認</h4>
+          <ul class="todo" data-day="2025-10-19"><li><input type="checkbox" id="1019-3"><label for="1019-3"><div class="ttl">指差し確認</div><div class="hint">塗りミス撲滅</div></label></li></ul></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- 当日メモ -->
+  <section id="memo" class="card">
+    <h2 class="sec-title"><span class="dot"></span><span>当日メモ（A4一枚に集約する項目）</span></h2>
+    <div class="memo-grid">
+      <div class="memo"><div class="kicker">業法｜最重要</div><h4>35条／37条</h4>
+        <ul class="small">
+          <li><b>35条：説明＝宅建士／交付＝契約前</b></li>
+          <li><b>37条：記名押印＝当事者／交付＝契約後</b></li>
+          <li>自ら売主の8種制限／媒介3種のレインズ・報告義務</li>
+          <li>監督処分：指示→停止→取消</li>
+        </ul>
+      </div>
+      <div class="memo"><div class="kicker">制限｜公式を口で</div><h4>建ぺい・容積・地区</h4>
+        <ul class="small">
+          <li>容積率＝前面道路幅員×<b>4/10</b>（住居系）</li>
+          <li>角地緩和＝建ぺい<b>+10%</b></li>
+          <li>防火/準防火・高度地区・日影：地区名を1語</li>
+          <li>農地法／国土法／宅造：<b>許可 or 届出</b></li>
+        </ul>
+      </div>
+      <div class="memo"><div class="kicker">税｜数字と主体</div><h4>取得税・固定資産税・都市計画税・住ロ控除</h4>
+        <ul class="small">
+          <li>取得税＝評価額×<b>3%</b>（原則）</li>
+          <li>固定資産税：<b>1/1現在</b>の所有者</li>
+          <li>都市計画税：上限<b>0.3%</b></li>
+          <li>住ロ控除：対象／期間／最大控除</li>
+        </ul>
+      </div>
+      <div class="memo"><div class="kicker">権利｜頻出10</div><h4>見出し語で想起</h4>
+        <ul class="small">
+          <li>意思表示（心裡留保・通謀虚偽・錯誤）</li>
+          <li>代理（無権代理・表見代理）</li>
+          <li>時効（起算・更新・完成猶予）</li>
+          <li>契約不適合責任（旧瑕疵担保との差）</li>
+          <li>物権変動（対抗要件・二重譲渡）</li>
+          <li>抵当権（物上代位・極度額）</li>
+          <li>連帯保証（情報提供義務 等）</li>
+          <li>相続（法定相続分・遺留分）</li>
+          <li>借地借家（期間・更新・正当事由）</li>
+          <li>定型約款・消費者契約法</li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot-msg">絶対に受かる。やるべきことは全部ここにある。</p>
+  </section>
+</div>
+<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+<script>
+  // ===== D-day counter (JST) =====
+  (function(){
+    const target = new Date('2025-10-19T00:00:00+09:00'); // Tokyo
+    const now = new Date();
+    const diff = Math.ceil((target - now) / (1000*60*60*24));
+    document.getElementById('dday').textContent = diff >= 0 ? diff : 0;
+  })();
+
+  // ===== Checklist persistence & progress =====
+  const STORAGE_KEY = 'takken-bootcamp-v2';
+  const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+  const overallBar = document.getElementById('overallBar');
+  const overallText = document.getElementById('overallText');
+
+  // restore + bind
+  checkboxes.forEach(cb=>{
+    if(state[cb.id]) cb.checked = true;
+    cb.closest('li').classList.toggle('done', cb.checked);
+    cb.addEventListener('change', ()=>{
+      state[cb.id] = cb.checked;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      cb.closest('li').classList.toggle('done', cb.checked);
+      tick();
+    });
+  });
+
+  function tick(){
+    const total = checkboxes.length;
+    const done = checkboxes.filter(c=>c.checked).length;
+    overallBar.style.width = total ? (done/total*100).toFixed(1)+'%' : '0%';
+    overallText.textContent = `${done} / ${total} 完了`;
+  }
+  tick();
+
+  // ===== Highlight today's panel (JST) =====
+  (function markToday(){
+    const jst = new Date().toLocaleString('ja-JP', {timeZone:'Asia/Tokyo'});
+    const today = new Date(jst);
+    const y = today.getFullYear();
+    const m = String(today.getMonth()+1).padStart(2,'0');
+    const d = String(today.getDate()).padStart(2,'0');
+    const id = `d-${y}-${m}-${d}`;
+    const el = document.getElementById(id);
+    if(el){
+      el.classList.add('is-today');
+      el.setAttribute('open','open');
+      if(window.scrollY < 20){
+        setTimeout(()=>{ el.scrollIntoView({behavior:'smooth', block:'start'}) }, 200);
+      }
+    }
+  })();
+</script>
+</body>
+</html>
